@@ -5,6 +5,7 @@ from PIL import Image
 
 colors = ["#1C1C1C" , "#282828"]
 size=(96, 96)
+
 pdf_img = Image.open("./src/pdf.png")
 pdf_img = CTkImage(light_image=pdf_img, dark_image=pdf_img, size=size)
 img_img = Image.open("./src/img.png")
@@ -49,6 +50,8 @@ def main(dossier):
         sub_frame = CTkFrame(frame, bg_color=colors[1])
         sub_frame.pack(padx=100, pady=20, fill=X, expand=True)
         
+        width = sub_frame.winfo_vrootwidth()
+        
         for i,files in enumerate(values) :
 
             if key == "pdf" : panel = CTkButton(sub_frame, fg_color="transparent", text="", image=pdf_img, command=test)
@@ -59,10 +62,11 @@ def main(dossier):
             elif key in ["mp3"] : panel = CTkButton(sub_frame, fg_color="transparent", text="", image=sound_img, command=test)
             elif key in ["mp4"] : panel = CTkButton(sub_frame, fg_color="transparent", text="", image=video_img, command=test)
             else : panel = CTkButton(sub_frame, fg_color="transparent", text="", image=warn_img, command=test)
-            panel.grid(row=0, column=i, padx=10)
             
-            file_label = CTkLabel(sub_frame, text=files)
-            file_label.grid(row=1, column=i, padx=10)
+            print(width//250)
+            panel.grid(row=0, column=i, padx=10, sticky=N)
+            panel.configure(text=files, compound="top", width=250)
+            panel._text_label.configure(wraplength=300)
         
     def on_frame_configure(event):
         canvas.configure(scrollregion=canvas.bbox("all"))
