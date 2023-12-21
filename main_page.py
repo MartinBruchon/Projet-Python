@@ -23,8 +23,8 @@ video_img = CTkImage(light_image=video_img, dark_image=video_img, size=size)
 warn_img = Image.open("./src/warn.png")
 warn_img = CTkImage(light_image=warn_img, dark_image=warn_img, size=size)
 
-def test():
-    print("ok")    
+def test(f):
+    print(f)    
 
 def main(dossier):
     root = CTk()
@@ -50,21 +50,25 @@ def main(dossier):
         sub_frame = CTkFrame(frame, bg_color=colors[1])
         sub_frame.pack(padx=100, pady=20, fill=X, expand=True)
         
-        width = sub_frame.winfo_vrootwidth()
+        sub_frame.update()
+        maxwg = (sub_frame.winfo_width())//270
+        n=0
+        row=0
         
         for i,files in enumerate(values) :
 
-            if key == "pdf" : panel = CTkButton(sub_frame, fg_color="transparent", text="", image=pdf_img, command=test)
-            elif key in ["png", "jpg" ,"jpeg"] : panel = CTkButton(sub_frame, fg_color="transparent", text="", image=img_img, command=test)
-            elif key in ["ppt", "pptx"] : panel = CTkButton(sub_frame, fg_color="transparent", text="", image=ppt_img, command=test)
-            elif key in ["doc", "docx"] : panel = CTkButton(sub_frame, fg_color="transparent", text="", image=word_img, command=test)
-            elif key in ["xls", "xlsx"] : panel = CTkButton(sub_frame, fg_color="transparent", text="", image=xls_img, command=test)
-            elif key in ["mp3"] : panel = CTkButton(sub_frame, fg_color="transparent", text="", image=sound_img, command=test)
-            elif key in ["mp4"] : panel = CTkButton(sub_frame, fg_color="transparent", text="", image=video_img, command=test)
-            else : panel = CTkButton(sub_frame, fg_color="transparent", text="", image=warn_img, command=test)
+            if key == "pdf" : panel = CTkButton(sub_frame, fg_color="transparent", text="", image=pdf_img, command=lambda f=files:test(f))
+            elif key in ["png", "jpg" ,"jpeg"] : panel = CTkButton(sub_frame, fg_color="transparent", text="", image=img_img, command=lambda f=files:test(f))
+            elif key in ["ppt", "pptx"] : panel = CTkButton(sub_frame, fg_color="transparent", text="", image=ppt_img, command=lambda f=files:test(f))
+            elif key in ["doc", "docx"] : panel = CTkButton(sub_frame, fg_color="transparent", text="", image=word_img, command=lambda f=files:test(f))
+            elif key in ["xls", "xlsx"] : panel = CTkButton(sub_frame, fg_color="transparent", text="", image=xls_img, command=lambda f=files:test(f))
+            elif key in ["mp3"] : panel = CTkButton(sub_frame, fg_color="transparent", text="", image=sound_img, command=lambda f=files:test(f))
+            elif key in ["mp4"] : panel = CTkButton(sub_frame, fg_color="transparent", text="", image=video_img, command=lambda f=files:test(f))
+            else : panel = CTkButton(sub_frame, fg_color="transparent", text="", image=warn_img, command=lambda f=files:test(f))
             
-            print(width//250)
-            panel.grid(row=0, column=i, padx=10, sticky=N)
+            if n >= maxwg : row += 1; n =0
+            n += 1
+            panel.grid(row=row, column=n, padx=10, sticky=N)
             panel.configure(text=files, compound="top", width=250)
             panel._text_label.configure(wraplength=300)
         
