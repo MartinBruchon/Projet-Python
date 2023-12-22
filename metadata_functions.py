@@ -171,7 +171,7 @@ def get_pdf_metadata(filename):
 def get_image_metadata(img_src):
     def get_exif(filename):
         image = Image.open(filename)
-        image.verify()
+        #image.verify() ## causes problems with PNG files...
         return image._getexif()
 
     def get_labeled_exif(exif):
@@ -213,11 +213,15 @@ def get_image_metadata(img_src):
         return location.address if location else "Address not found"
 
     # Main functionality
-    exif = get_exif(img_src)
-    if not exif:
+    try:
+        exif = get_exif(img_src)
+    except:
         return {}
 
-    labeled_exif = get_labeled_exif(exif)
+    try:
+        labeled_exif = get_labeled_exif(exif)
+    except:
+        return {}
     geotags = get_geotagging(exif)
     result = {'Full': labeled_exif}
 
