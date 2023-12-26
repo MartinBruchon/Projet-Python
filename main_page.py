@@ -1,7 +1,7 @@
-import tkinter as tk
 from customtkinter import *
 from scan_folder import scan
 from PIL import Image
+import image_info, pdf_info, office_info
 
 colors = ["#1C1C1C" , "#282828"]
 size=(96, 96)
@@ -23,10 +23,17 @@ video_img = CTkImage(light_image=video_img, dark_image=video_img, size=size)
 warn_img = Image.open("./src/warn.png")
 warn_img = CTkImage(light_image=warn_img, dark_image=warn_img, size=size)
 
-def test(f):
-    print(f)    
-
 def main(dossier):
+    
+    def test(f,t):
+        if t == "Image" : image_info.main(os.path.join(dossier, f))
+        elif t == "PDF Document" : pdf_info.main(os.path.join(dossier, f))
+        elif t in ["PowerPoint Presentation", "Excel", "Word Document"] : office_info.main(os.path.join(dossier, f))
+        # elif t == "Image" : image_info.main(os.path.join(dossier, f))
+        # elif t == "Image" : image_info.main(os.path.join(dossier, f))
+        # elif t == "Image" : image_info.main(os.path.join(dossier, f))
+        # elif t == "Image" : image_info.main(os.path.join(dossier, f))
+    
     root = CTk()
     screen_width = root.winfo_screenwidth()
     screen_height = root.winfo_screenheight()
@@ -35,7 +42,7 @@ def main(dossier):
     canvas = CTkCanvas(root, bg=colors[0], highlightthickness=0)
     canvas.pack(side=LEFT, fill=BOTH, expand=True)
     scrollbar = CTkScrollbar(root, orientation=VERTICAL, command=canvas.yview, corner_radius=0)
-    scrollbar.pack(side=RIGHT, fill=Y)        
+    scrollbar.pack(side=RIGHT, fill=Y)
     canvas.configure(yscrollcommand=scrollbar.set)
 
     frame = CTkFrame(canvas, fg_color=colors[0])
@@ -57,14 +64,14 @@ def main(dossier):
         
         for i,files in enumerate(values) :
 
-            if key == "pdf" : panel = CTkButton(sub_frame, fg_color="transparent", text="", image=pdf_img, command=lambda f=files:test(f))
-            elif key in ["png", "jpg" ,"jpeg"] : panel = CTkButton(sub_frame, fg_color="transparent", text="", image=img_img, command=lambda f=files:test(f))
-            elif key in ["ppt", "pptx"] : panel = CTkButton(sub_frame, fg_color="transparent", text="", image=ppt_img, command=lambda f=files:test(f))
-            elif key in ["doc", "docx"] : panel = CTkButton(sub_frame, fg_color="transparent", text="", image=word_img, command=lambda f=files:test(f))
-            elif key in ["xls", "xlsx"] : panel = CTkButton(sub_frame, fg_color="transparent", text="", image=xls_img, command=lambda f=files:test(f))
-            elif key in ["mp3"] : panel = CTkButton(sub_frame, fg_color="transparent", text="", image=sound_img, command=lambda f=files:test(f))
-            elif key in ["mp4"] : panel = CTkButton(sub_frame, fg_color="transparent", text="", image=video_img, command=lambda f=files:test(f))
-            else : panel = CTkButton(sub_frame, fg_color="transparent", text="", image=warn_img, command=lambda f=files:test(f))
+            if key == "PDF Document" : panel = CTkButton(sub_frame, fg_color="transparent", text="", image=pdf_img, command=lambda f=files, t=key:test(f,t))
+            elif key == "Image" : panel = CTkButton(sub_frame, fg_color="transparent", text="", image=img_img, command=lambda f=files, t=key:test(f,t))
+            elif key == "PowerPoint Presentation" : panel = CTkButton(sub_frame, fg_color="transparent", text="", image=ppt_img, command=lambda f=files, t=key:test(f,t))
+            elif key == "Word Document" : panel = CTkButton(sub_frame, fg_color="transparent", text="", image=word_img, command=lambda f=files, t=key:test(f,t))
+            elif key == "Excel" : panel = CTkButton(sub_frame, fg_color="transparent", text="", image=xls_img, command=lambda f=files, t=key:test(f,t))
+            elif key == "Audio File" : panel = CTkButton(sub_frame, fg_color="transparent", text="", image=sound_img, command=lambda f=files, t=key:test(f,t))
+            elif key == "Video" : panel = CTkButton(sub_frame, fg_color="transparent", text="", image=video_img, command=lambda f=files, t=key:test(f,t))
+            else : panel = CTkButton(sub_frame, fg_color="transparent", text="", image=warn_img, command=lambda f=files, t=key:test(f,t))
             
             if n >= maxwg : row += 1; n =0
             n += 1
@@ -80,4 +87,4 @@ def main(dossier):
     root.title("main")
     root.mainloop()
     
-main("./test_dir")
+#main("./test_dir")

@@ -1,7 +1,6 @@
 import customtkinter as ctk
 import main_page
 
-global dossier
 dossier = ""
 
 def choisir_dossier():

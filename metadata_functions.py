@@ -153,7 +153,7 @@ def get_pdf_metadata(filename):
                          "/Subject",
                          )
     
-    reader = PdfReader(d)
+    reader = PdfReader(filename)
     meta = reader.metadata
     res = {}
     
