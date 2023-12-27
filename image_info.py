@@ -1,7 +1,6 @@
 from customtkinter import *
 from PIL import Image
 from metadata_functions import get_image_metadata as exif
-import tkinter as tk
 import tkintermapview as tkmap
 
 colors = ["#1C1C1C" , "#282828"]

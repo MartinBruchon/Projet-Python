@@ -1,0 +1,11 @@
+filetype
+datetime
+pypdf
+pillow
+geopy
+docx
+openpyxl
+pptx
+tinytag
+customtkinter
+tkintermapview
