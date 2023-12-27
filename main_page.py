@@ -1,7 +1,7 @@
 from customtkinter import *
 from scan_folder import scan
 from PIL import Image
-import image_info, pdf_info, office_info
+import image_info, pdf_info, office_info, video_info, audio_info
 
 colors = ["#1C1C1C" , "#282828"]
 size=(96, 96)
@@ -29,10 +29,8 @@ def main(dossier):
         if t == "Image" : image_info.main(os.path.join(dossier, f))
         elif t == "PDF Document" : pdf_info.main(os.path.join(dossier, f))
         elif t in ["PowerPoint Presentation", "Excel", "Word Document"] : office_info.main(os.path.join(dossier, f))
-        # elif t == "Image" : image_info.main(os.path.join(dossier, f))
-        # elif t == "Image" : image_info.main(os.path.join(dossier, f))
-        # elif t == "Image" : image_info.main(os.path.join(dossier, f))
-        # elif t == "Image" : image_info.main(os.path.join(dossier, f))
+        elif t == "Audio File" : audio_info.main(os.path.join(dossier, f))
+        elif t == "Video" : video_info.main(os.path.join(dossier, f))
     
     root = CTk()
     screen_width = root.winfo_screenwidth()

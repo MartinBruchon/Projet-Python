@@ -48,8 +48,9 @@ files_list = dict()
 
 def scan(dossier):
     for file in os.listdir(dossier):
-        if not os.path.isdir(file):
-            file_type,_,integrity = check_file_integrity(dossier + "/" + file)
+        full_path = dossier + "/" + file
+        if os.path.isfile(full_path) :
+            file_type,_,integrity = check_file_integrity(full_path)
             if integrity == 1 :
                 file_type = get_key_from_extension(file_type)
                 files_list.add_file(file_type, file)

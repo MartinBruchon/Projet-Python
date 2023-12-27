@@ -17,7 +17,6 @@ from pptx import Presentation
 # audio and video metadata
 from tinytag import TinyTag
 
-
 ## process a folder and save output
 def main_process_folder(folder_path, recursive=False):
     metadata_results = {}
@@ -287,12 +286,12 @@ def get_audio_metadata(file_path):
 
         # Extract specific metadata
         metadata = {
-            "title": tag.title,
-            "artist": tag.artist,
-            "album": tag.album,
-            "year": tag.year,
-            "genre": tag.genre,
-            "duration": tag.duration,  # Duration in seconds
+            "Title": tag.title,
+            "Artist": tag.artist,
+            "Album": tag.album,
+            "Year": tag.year,
+            "Genre": tag.genre,
+            "Duration": tag.duration,  # Duration in seconds
         }
         
         # Add full metadata
@@ -312,12 +311,12 @@ def get_video_metadata(file_path):
 
         # Extract specific metadata
         metadata = {
-            "title": tag.title,
-            "artist": tag.artist,
-            "album": tag.album,
-            "year": tag.year,
-            "genre": tag.genre,
-            "duration": tag.duration,  # Duration in seconds
+            "Title": tag.title,
+            "Artist": tag.artist,
+            "Album": tag.album,
+            "Year": tag.year,
+            "Genre": tag.genre,
+            "Duration": tag.duration,  # Duration in seconds
         }
         
         # Add full metadata
