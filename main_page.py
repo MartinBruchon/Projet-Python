@@ -2,6 +2,7 @@ from customtkinter import *
 from scan_folder import scan
 from PIL import Image
 import image_info, pdf_info, office_info, video_info, audio_info
+from metadata_functions import main_process_folder
 
 colors = ["#1C1C1C" , "#282828"]
 size=(96, 96)
@@ -32,7 +33,14 @@ def main(dossier):
         elif t == "Audio File" : audio_info.main(os.path.join(dossier, f))
         elif t == "Video" : video_info.main(os.path.join(dossier, f))
     
+    def optionmenu_callback(choice):
+        match choice:
+            case "Exit": exit()
+            case "Save as Pickle": main_process_folder(dossier, False, "pickle")
+            case "Save as CSV": main_process_folder(dossier, False, "csv")
+    
     root = CTk()
+    root.title("Main page")
     screen_width = root.winfo_screenwidth()
     screen_height = root.winfo_screenheight()
     root.geometry(f'{screen_width}x{screen_height}+0+0')
@@ -45,6 +53,12 @@ def main(dossier):
 
     frame = CTkFrame(canvas, fg_color=colors[0])
     canvas.create_window((screen_width//2, 0), window=frame, anchor=N, width=screen_width)
+    
+    optionmenu = CTkOptionMenu(frame, values=["Save as Pickle", "Save as CSV", "Exit"], command=optionmenu_callback)
+    optionmenu.set("Options")
+    optionmenu.pack(anchor=NW)
+    padding_label = CTkLabel(frame, text="", height=30)
+    padding_label.pack()
     
     filetype_list = scan(dossier)
 
@@ -81,8 +95,6 @@ def main(dossier):
         canvas.configure(scrollregion=canvas.bbox("all"))
 
     frame.bind("<Configure>", on_frame_configure)
-
-    root.title("main")
     root.mainloop()
     
 #main("./test_dir")

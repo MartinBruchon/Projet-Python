@@ -18,7 +18,7 @@ from pptx import Presentation
 from tinytag import TinyTag
 
 ## process a folder and save output
-def main_process_folder(folder_path, recursive=False):
+def main_process_folder(folder_path, recursive, save_type):
     metadata_results = {}
     
     if recursive:
@@ -45,8 +45,9 @@ def main_process_folder(folder_path, recursive=False):
     
     # Save results with timestamp in filenames
     base_path = 'metadata_results'
-    save_to_pickle(metadata_results, base_path)
-    save_to_csv(metadata_results, base_path)
+    match save_type :
+        case "pickle" : save_to_pickle(metadata_results, base_path)
+        case "csv" : save_to_csv(metadata_results, base_path)
 
 
 def extract_metadata(file_path):
@@ -54,7 +55,7 @@ def extract_metadata(file_path):
     ## known extensions
     image_formats = {ext: get_image_metadata for ext in ['jpg', 'jpeg', 'png', 'gif', 'bmp', 'tiff', 'svg']}
     office_formats = {ext: get_office_metadata for ext in ['xlsx', 'docx', 'pptx']}
-    old_office_formats = {ext: get_old_office_metadata for ext in ['xls', 'doc', 'ppt']}
+    # old_office_formats = {ext: get_old_office_metadata for ext in ['xls', 'doc', 'ppt']}
     video_formats = {ext: get_video_metadata for ext in ['mp4', 'avi', 'mov', 'wmv', 'flv', 'mkv']}
     audio_formats = {ext: get_audio_metadata for ext in ['mp3', 'wav', 'aac', 'ogg', 'flac']}
     
@@ -63,12 +64,12 @@ def extract_metadata(file_path):
         **image_formats,
         'pdf': get_pdf_metadata,
         **office_formats,
-        **old_office_formats,
+        # **old_office_formats,
         **video_formats,
         **audio_formats
     }
 
-    os_stats = get_readable_file_stats(filename)
+    os_stats = get_readable_file_stats(file_path)
     ## get real file extension
     ## can print message (optional)
     real_extension, given_extension, message = check_file_integrity(file_path)
