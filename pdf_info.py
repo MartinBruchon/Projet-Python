@@ -15,6 +15,8 @@ def metadata_parser(metadatas):
 
 def main(file):
     
+    set_appearance_mode("dark")
+    
     metadatas = pdf(file)
     txt = metadata_parser(metadatas)
     

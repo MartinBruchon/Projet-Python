@@ -35,10 +35,10 @@ def main(dossier):
     
     def optionmenu_callback(choice):
         match choice:
-            case "Exit": exit()
             case "Save as Pickle": main_process_folder(dossier, False, "pickle")
             case "Save as CSV": main_process_folder(dossier, False, "csv")
     
+    set_appearance_mode("dark")
     root = CTk()
     root.title("Main page")
     screen_width = root.winfo_screenwidth()
@@ -54,8 +54,8 @@ def main(dossier):
     frame = CTkFrame(canvas, fg_color=colors[0])
     canvas.create_window((screen_width//2, 0), window=frame, anchor=N, width=screen_width)
     
-    optionmenu = CTkOptionMenu(frame, values=["Save as Pickle", "Save as CSV", "Exit"], command=optionmenu_callback)
-    optionmenu.set("Options")
+    optionmenu = CTkOptionMenu(frame, values=["Save as Pickle", "Save as CSV"], command=optionmenu_callback)
+    optionmenu.set("Save options")
     optionmenu.pack(anchor=NW)
     padding_label = CTkLabel(frame, text="", height=30)
     padding_label.pack()

@@ -37,6 +37,8 @@ def metadata_parser(metadatas):
 
 def main(file):
     
+    set_appearance_mode("dark")
+
     img = Image.open(file)
     metadatas = exif(file)
     txt = metadata_parser(metadatas)

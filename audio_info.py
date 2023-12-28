@@ -14,6 +14,7 @@ def metadata_parser(metadatas):
 
 def main(file):
     
+    set_appearance_mode("dark")
     metadatas = audio(file)
     txt = metadata_parser(metadatas)
     

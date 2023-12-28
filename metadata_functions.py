@@ -17,6 +17,29 @@ from pptx import Presentation
 # audio and video metadata
 from tinytag import TinyTag
 
+def save_to_pickle(data, base_file_path):
+    timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
+    filename = f"{base_file_path}_{timestamp}.pkl"
+    with open(filename, 'wb') as pickle_file:
+        pickle.dump(data, pickle_file)
+
+# def load_from_pickle(file_path):
+#     with open(file_path, 'rb') as pickle_file:
+#         return pickle.load(pickle_file)
+#     # Example of loading
+#     #loaded_data = load_from_pickle('metadata_results_yourtimestamp.pkl')
+
+# save to csv as human-readable
+def save_to_csv(data, base_file_path):
+    timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
+    filename = f"{base_file_path}_{timestamp}.csv"
+    with open(filename, 'w', newline='', encoding='utf-8') as csv_file:
+        writer = csv.writer(csv_file)
+        writer.writerow(['File Path', 'Metadata'])
+
+        for file_path, metadata in data.items():
+            writer.writerow([file_path, str(metadata)]) 
+
 ## process a folder and save output
 def main_process_folder(folder_path, recursive, save_type):
     metadata_results = {}
@@ -107,6 +130,7 @@ def remove_none_entries(metadata):
 
 def check_file_integrity(file_path):
     kind = filetype.guess(file_path)
+    print(kind)
     message = ''
     if kind is None :
         message = "Unknown or unsupported image type."

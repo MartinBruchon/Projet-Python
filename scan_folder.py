@@ -22,6 +22,7 @@ def get_filetype(file_path):
 
 def check_file_integrity(file_path):
     kind = filetype.guess(file_path)
+    print(kind)
     if kind is None:
         return None, None, False
     actual_type = kind.extension
