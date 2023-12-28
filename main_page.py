@@ -46,6 +46,7 @@ def main(dossier):
             case "Exit": exit()
     
     set_appearance_mode("dark")
+    deactivate_automatic_dpi_awareness()
     root = CTk()
     root.title("Main page")
     screen_width = root.winfo_screenwidth()
