@@ -33,7 +33,10 @@ def main(file):
     data_panel = CTkLabel(frame, bg_color=colors[1], text=txt, anchor=NW, justify=LEFT, padx=20, pady=20)
     data_panel.grid(column=0, rowspan=2, sticky=NSEW, padx = 30, pady=30)
     data_panel.update()
-    data_panel.configure(wraplength = data_panel.winfo_width()-40)
+    data_panel.configure(wraplength = data_panel.winfo_width()-100)
+    
+    if txt == "There is no metadata in this file.\nTry another one." :
+        data_panel.configure(justify=CENTER, anchor=CENTER)
 
     root.title("PDF metadata")
     root.mainloop()

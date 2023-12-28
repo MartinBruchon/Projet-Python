@@ -17,16 +17,15 @@ def fit(img, panel):
         return (panel_size[0], panel_size[0]//img_ratio)
     
 def metadata_parser(metadatas):
-    txt = "Global :\r\n"
-    tmp = ""
+    txt = ""
+    tmp = "\n"
     try :
         for e in metadatas["Full"] :
             if str(metadatas["Full"][e])[:2] != "b'" and e != "GPSInfo":
                 txt += str(e)+" : "+str(metadatas["Full"][e])+"\n"
     except :
-        txt = "There is no metadata in this image.\nTry another one."
+        txt = "There is no metadata in this file.\nTry another one."
     try :
-        tmp += "\nGPS Infos :\r\n"
         for e in metadatas :
             if e != "Full": tmp += str(e)+" : "+str(metadatas[e])+"\n"
         txt += tmp
@@ -56,7 +55,10 @@ def main(file):
     data_panel = CTkLabel(frame, bg_color=colors[1], text=txt, anchor=NW, justify=LEFT, padx=20, pady=20)
     data_panel.grid(column=0, rowspan=2, sticky=NSEW, padx = 30, pady=30)
     data_panel.update()
-    data_panel.configure(wraplength = data_panel.winfo_width()-40)
+    data_panel.configure(wraplength = data_panel.winfo_width() - 100)
+    
+    if txt == "There is no metadata in this file.\nTry another one." :
+        data_panel.configure(justify=CENTER, anchor=CENTER)
     
     preview_panel = CTkLabel(frame, bg_color=colors[1], text='')
     preview_panel.grid(row=0, column=1, sticky=NSEW,  padx = 30, pady=30)

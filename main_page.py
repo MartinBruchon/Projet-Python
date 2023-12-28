@@ -3,6 +3,7 @@ from scan_folder import scan
 from PIL import Image
 import image_info, pdf_info, office_info, video_info, audio_info
 from metadata_functions import main_process_folder
+import subprocess
 
 colors = ["#1C1C1C" , "#282828"]
 size=(96, 96)
@@ -35,8 +36,14 @@ def main(dossier):
     
     def optionmenu_callback(choice):
         match choice:
+            case "Change directory": 
+                root.quit()
+                root.destroy()
+                subprocess.Popen([sys.executable,"folder_selection.py"])
+                exit()
             case "Save as Pickle": main_process_folder(dossier, False, "pickle")
             case "Save as CSV": main_process_folder(dossier, False, "csv")
+            case "Exit": exit()
     
     set_appearance_mode("dark")
     root = CTk()
@@ -54,9 +61,10 @@ def main(dossier):
     frame = CTkFrame(canvas, fg_color=colors[0])
     canvas.create_window((screen_width//2, 0), window=frame, anchor=N, width=screen_width)
     
-    optionmenu = CTkOptionMenu(frame, values=["Save as Pickle", "Save as CSV"], command=optionmenu_callback)
-    optionmenu.set("Save options")
-    optionmenu.pack(anchor=NW)
+    optionmenu = CTkOptionMenu(frame, values=["Save as Pickle", "Save as CSV", "Change directory", "Exit"], command=optionmenu_callback)
+    optionmenu.set("Options")
+    optionmenu.pack(anchor=NW, padx=100)
+    
     padding_label = CTkLabel(frame, text="", height=30)
     padding_label.pack()
     

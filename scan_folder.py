@@ -22,7 +22,6 @@ def get_filetype(file_path):
 
 def check_file_integrity(file_path):
     kind = filetype.guess(file_path)
-    print(kind)
     if kind is None:
         return None, None, False
     actual_type = kind.extension
@@ -37,25 +36,24 @@ def check_file_integrity(file_path):
     
     return actual_type, file_extension, integrity
 
-class dict(dict):
-    def add_file(self, type, file):
-        if type in files_list.keys():
-            files_list[type].append(file)
-        else:
-            files_list[type] = [file]
-        return files_list
-
-files_list = dict()
-
 def scan(dossier):
+    files_list = {"PDF Document":[],
+              "Image":[], 
+              "Video":[],
+              "Audio File":[],
+              "Word Document":[],
+              "PowerPoint Presentation":[],
+              "Excel":[],
+              "Integrity check failure or unsupported file":[]}
     for file in os.listdir(dossier):
         full_path = dossier + "/" + file
         if os.path.isfile(full_path) :
             file_type,_,integrity = check_file_integrity(full_path)
             if integrity == 1 :
                 file_type = get_key_from_extension(file_type)
-                files_list.add_file(file_type, file)
-            else : files_list.add_file("Integrity check failure", file)
+                files_list[file_type].append(file)
+            else : files_list["Integrity check failure or unsupported file"].append(file)
         else : pass
+    files_list = {key: value for key, value in files_list.items() if value != []}
     return files_list
         
