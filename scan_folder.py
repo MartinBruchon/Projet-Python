@@ -51,7 +51,8 @@ def scan(dossier):
             file_type,_,integrity = check_file_integrity(full_path)
             if integrity == 1 :
                 file_type = get_key_from_extension(file_type)
-                files_list[file_type].append(file)
+                try : files_list[file_type].append(file)
+                except : continue
             else : files_list["Integrity check failure or unsupported file"].append(file)
         else : pass
     files_list = {key: value for key, value in files_list.items() if value != []}
