@@ -57,7 +57,7 @@ def main(file):
     data_panel.update()
     data_panel.configure(wraplength = data_panel.winfo_width() - 100)
     
-    if txt == "There is no metadata in this file.\nTry another one." :
+    if txt[:20] == "There is no metadata" :
         data_panel.configure(justify=CENTER, anchor=CENTER)
     
     preview_panel = CTkLabel(frame, bg_color=colors[1], text='')
