@@ -49,6 +49,7 @@ def create_thumbnailer(thumbnails_list):
 
 def fit(img, panel):
     img_size = img.size
+    panel.update()
     panel_size = (panel.winfo_width(), panel.winfo_height())
     img_ratio = img_size[0]/img_size[1]
     panel_ratio = panel_size[0]/panel_size[1]
@@ -73,6 +74,7 @@ def main(file):
     root.geometry(f'{screen_width}x{screen_height}+0+0')
     if system() == "Linux":root.attributes('-zoomed', True)
     else : root.state("zoomed")
+    root.attributes('-topmost', True)
     
     frame = CTkFrame(root, fg_color=colors[0])
     frame.pack(fill=BOTH, expand=True)
