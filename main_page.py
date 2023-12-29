@@ -53,7 +53,7 @@ def main(dossier):
     screen_width = root.winfo_screenwidth()
     print(screen_width)
     screen_height = root.winfo_screenheight()
-    root.geometry(f'{screen_width}x{screen_height}+0+0')
+    #root.geometry(f'{screen_width}x{screen_height}+0+0')
     if system() == "Linux":root.attributes('-zoomed', True)
     else : root.state("zoomed")
 
