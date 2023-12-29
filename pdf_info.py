@@ -2,6 +2,7 @@ from customtkinter import *
 from PIL import Image
 from metadata_functions import get_pdf_metadata as pdf
 from pdf2image import convert_from_path
+from platform import system
 
 #convert_from_path()
 
@@ -27,6 +28,8 @@ def main(file):
     screen_width = root.winfo_screenwidth()
     screen_height = root.winfo_screenheight()
     root.geometry(f'{screen_width}x{screen_height}+0+0')
+    if system() == "Linux":root.attributes('-zoomed', True)
+    else : root.state("zoomed")
     
     frame = CTkFrame(root, fg_color=colors[0])
     frame.pack(fill=BOTH, expand=True)

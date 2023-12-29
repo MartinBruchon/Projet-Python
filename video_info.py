@@ -1,6 +1,7 @@
 from customtkinter import *
 from PIL import Image
 from metadata_functions import get_video_metadata as video
+from platform import system
 
 colors = ["#1C1C1C" , "#282828"]
 
@@ -23,6 +24,8 @@ def main(file):
     screen_width = root.winfo_screenwidth()
     screen_height = root.winfo_screenheight()
     root.geometry(f'{screen_width}x{screen_height}+0+0')
+    if system() == "Linux":root.attributes('-zoomed', True)
+    else : root.state("zoomed")
     
     frame = CTkFrame(root, fg_color=colors[0])
     frame.pack(fill=BOTH, expand=True)

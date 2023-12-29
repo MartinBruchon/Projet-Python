@@ -4,6 +4,7 @@ from PIL import Image
 import image_info, pdf_info, office_info, video_info, audio_info
 from metadata_functions import main_process_folder
 import subprocess
+from platform import system
 
 colors = ["#1C1C1C" , "#282828"]
 size=(96, 96)
@@ -52,7 +53,11 @@ def main(dossier):
     screen_width = root.winfo_screenwidth()
     screen_height = root.winfo_screenheight()
     root.geometry(f'{screen_width}x{screen_height}+0+0')
-    root.attributes('-zoomed', True)
+    if system() == "Linux":root.attributes('-zoomed', True)
+    else : root.state("zoomed")
+    
+    dpi = root.winfo_fpixels('1i')
+    print(dpi)
 
     canvas = CTkCanvas(root, bg='red', highlightthickness=0) #colors[0]
     canvas.pack(side=LEFT, fill=BOTH, expand=True)
