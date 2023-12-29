@@ -61,6 +61,7 @@ def main(dossier):
 
     frame = CTkFrame(canvas, fg_color=colors[0])
     canvas.update()
+    print(screen_width, canvas.winfo_width())
     canvas.create_window((screen_width//2, 0), window=frame, anchor=N, width=canvas.winfo_width())
     
     optionmenu = CTkOptionMenu(frame, values=["Save as Pickle", "Save as CSV", "Change directory", "Exit"], command=optionmenu_callback)
