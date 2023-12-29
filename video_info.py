@@ -49,10 +49,11 @@ def create_thumbnailer(thumbnails_list):
 
 def fit(img, panel):
     img_size = img.size
-    panel.update()
     panel_size = (panel.winfo_width(), panel.winfo_height())
     img_ratio = img_size[0]/img_size[1]
     panel_ratio = panel_size[0]/panel_size[1]
+    
+    print(f'img size = {img_size}, ratio = {img_ratio}, panel size = {panel_size}, ratio = {panel_ratio}')
     
     if img_ratio <= panel_ratio :
         return (panel_size[1]*img_ratio, panel_size[1])
