@@ -92,6 +92,7 @@ def main(file):
 
     preview_panel.update()
     size = fit(img, preview_panel)
+    print(size)
     img = CTkImage(light_image=img, dark_image=img, size=size)
     preview_panel.configure(image=img, anchor=CENTER, padx=0, pady=0)
 
