@@ -6,8 +6,8 @@ type_parser = {
     "PowerPoint Presentation" : ["ppt", "pptx"],
     "Excel" : ["xls", "xlsx"],
     "Word Document" : ["doc", "docx"],
-    "Video" : ["mp4"],
-    "Audio File" : ["mp3"],
+    "Video" : ["mp4", "webp", "mov", "avi", "webm"],
+    "Audio File" : ["mp3", "wav"],
     "PDF Document" : ["pdf"]
 }
 

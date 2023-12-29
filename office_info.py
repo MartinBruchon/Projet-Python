@@ -1,5 +1,4 @@
 from customtkinter import *
-from PIL import Image
 from metadata_functions import get_office_metadata as office
 from platform import system
 
@@ -18,7 +17,7 @@ def main(file):
     
     set_appearance_mode("dark")
     metadatas = office(file)
-    txt = metadata_parser(metadatas)
+    txt = metadata_parser(metadatas)    
     
     root = CTkToplevel()
     screen_width = root.winfo_screenwidth()
