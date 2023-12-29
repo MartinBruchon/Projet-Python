@@ -9,4 +9,4 @@ python-pptx
 tinytag
 customtkinter
 tkintermapview
-pdf2image
+pdf2jpg
