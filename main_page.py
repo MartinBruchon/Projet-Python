@@ -61,7 +61,7 @@ def main(dossier):
 
     frame = CTkFrame(canvas, fg_color=colors[0])
     root.update()
-    canvas.create_window((root.winfo_width()//2, 0), window=frame, anchor=N, width=root.winfo_width()-10)
+    canvas.create_window((root.winfo_width()//2, 0), window=frame, anchor=N, width=root.winfo_width())
     
     optionmenu = CTkOptionMenu(frame, values=["Save as Pickle", "Save as CSV", "Change directory", "Exit"], command=optionmenu_callback)
     optionmenu.set("Options")
@@ -103,6 +103,12 @@ def main(dossier):
         
     def on_frame_configure(event):
         canvas.configure(scrollregion=canvas.bbox("all"))
+        
+    def resize(event):
+        if event.width > 500 and event.height > 500 :
+            root.geometry(f'{event.width}x{event.height}+{event.x}+{event.y}')
+
+    root.bind("<Configure>", resize)
 
     frame.bind("<Configure>", on_frame_configure)
     root.mainloop()
