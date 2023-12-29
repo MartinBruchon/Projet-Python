@@ -52,6 +52,7 @@ def main(dossier):
     screen_width = root.winfo_screenwidth()
     screen_height = root.winfo_screenheight()
     root.geometry(f'{screen_width}x{screen_height}+0+0')
+    root.attributes('-zoomed', True)
 
     canvas = CTkCanvas(root, bg='red', highlightthickness=0) #colors[0]
     canvas.pack(side=LEFT, fill=BOTH, expand=True)
@@ -103,12 +104,6 @@ def main(dossier):
         
     def on_frame_configure(event):
         canvas.configure(scrollregion=canvas.bbox("all"))
-        
-    def resize(event):
-        if event.width > 500 and event.height > 500 :
-            root.geometry(f'{event.width}x{event.height}+{event.x}+{event.y}')
-
-    root.bind("<Configure>", resize)
 
     frame.bind("<Configure>", on_frame_configure)
     root.mainloop()
