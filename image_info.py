@@ -1,10 +1,7 @@
-from customtkinter import *
+from metadata_window import Window
+from customtkinter import CTkImage, CENTER
 from PIL import Image
 from metadata_functions import get_image_metadata as exif
-import tkintermapview as tkmap
-from platform import system
-
-colors = ["#1C1C1C" , "#282828"]
 
 def fit(img, panel):
     img_size = img.size
@@ -37,47 +34,22 @@ def metadata_parser(metadatas):
 
 def main(file):
     
-    set_appearance_mode("dark")
-
     img = Image.open(file)
     metadatas = exif(file)
     txt = metadata_parser(metadatas)
     
-    root = CTkToplevel()
-    screen_width = root.winfo_screenwidth()
-    screen_height = root.winfo_screenheight()
-    root.geometry(f'{screen_width}x{screen_height}+0+0')
-    if system() == "Linux":root.attributes('-zoomed', True)
-    else : root.state("zoomed")
+    win = Window(n_panel=3, title="Image metadatas")
     
-    frame = CTkFrame(root, fg_color=colors[0])
-    frame.pack(fill=BOTH, expand=True)
-    frame.grid_rowconfigure([0,1], weight=1, uniform="row")
-    frame.grid_columnconfigure([0,1], weight=1, uniform='col')
-        
-    data_panel = CTkLabel(frame, bg_color=colors[1], text=txt, anchor=NW, justify=LEFT, padx=20, pady=20)
-    data_panel.grid(column=0, rowspan=2, sticky=NSEW, padx = 30, pady=30)
-    data_panel.update()
-    data_panel.configure(wraplength = data_panel.winfo_width() - 100)
+    win.data_panel.configure(text=txt)
     
     if txt[:20] == "There is no metadata" :
-        data_panel.configure(justify=CENTER, anchor=CENTER)
+        win.data_panel.configure(justify=CENTER, anchor=CENTER)
     
-    preview_panel = CTkLabel(frame, bg_color=colors[1], text='')
-    preview_panel.grid(row=0, column=1, sticky=NSEW,  padx = 30, pady=30)
-    
-    preview_panel.update()
-    size = fit(img, preview_panel)
+    win.preview_panel.update()
+    size = fit(img, win.preview_panel)
     img = CTkImage(light_image=img, dark_image=img, size=size)
-    preview_panel.configure(image=img, anchor=CENTER, padx=0, pady=0)    
+    win.preview_panel.configure(image=img, anchor=CENTER, padx=0, pady=0)    
     
-    try :
-        map_panel = tkmap.TkinterMapView(frame)
-        map_panel.set_position(deg_x=metadatas["Coordinates"][0], deg_y=metadatas["Coordinates"][1], marker=True)
-        map_panel.grid(row=1, column=1, sticky=NSEW,  padx = 30, pady=30)
-    except :
-        map_panel = CTkLabel(frame, bg_color=colors[1], text='Map is unavailable :\nThere is no GPS metadata')
-        map_panel.grid(row=1, column=1, sticky=NSEW,  padx = 30, pady=30)
+    win.create_map_panel(metadatas=metadatas)
 
-    root.title("Image metadata")
-    root.mainloop()
+    win.root.mainloop()
