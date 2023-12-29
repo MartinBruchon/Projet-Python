@@ -47,7 +47,7 @@ def main(dossier):
             case "Exit": exit()
     
     set_appearance_mode("dark")
-    deactivate_automatic_dpi_awareness()
+    #deactivate_automatic_dpi_awareness()
     root = CTk()
     root.title("Main page")
     screen_width = root.winfo_screenwidth()
@@ -56,7 +56,7 @@ def main(dossier):
     if system() == "Linux":root.attributes('-zoomed', True)
     else : root.state("zoomed")
 
-    canvas = CTkCanvas(root, bg='red', highlightthickness=0) #colors[0]
+    canvas = CTkCanvas(root, bg=colors[0], highlightthickness=0)
     canvas.pack(side=LEFT, fill=BOTH, expand=True)
     scrollbar = CTkScrollbar(root, orientation=VERTICAL, command=canvas.yview, corner_radius=0)
     scrollbar.pack(side=RIGHT, fill=Y)

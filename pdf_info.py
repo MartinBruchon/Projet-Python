@@ -4,8 +4,6 @@ from metadata_functions import get_pdf_metadata as pdf
 from pdf2image import convert_from_path
 from platform import system
 
-#convert_from_path()
-
 colors = ["#1C1C1C" , "#282828"]
 
 def metadata_parser(metadatas):
@@ -35,6 +33,8 @@ def main(file):
     frame.pack(fill=BOTH, expand=True)
     frame.grid_rowconfigure([0,1], weight=1, uniform="row")
     frame.grid_columnconfigure([0,1], weight=1, uniform='col')
+    
+    convert_from_path(file, first_page=1, last_page=1)
         
     data_panel = CTkLabel(frame, bg_color=colors[1], text=txt, anchor=NW, justify=LEFT, padx=20, pady=20)
     data_panel.grid(column=0, rowspan=2, sticky=NSEW, padx = 30, pady=30)
