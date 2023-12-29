@@ -53,16 +53,15 @@ def main(dossier):
     screen_height = root.winfo_screenheight()
     root.geometry(f'{screen_width}x{screen_height}+0+0')
 
-    canvas = CTkCanvas(root, bg='red', highlightthickness=0, width=screen_width) #colors[0]
+    canvas = CTkCanvas(root, bg='red', highlightthickness=0) #colors[0]
     canvas.pack(side=LEFT, fill=BOTH, expand=True)
     scrollbar = CTkScrollbar(root, orientation=VERTICAL, command=canvas.yview, corner_radius=0)
     scrollbar.pack(side=RIGHT, fill=Y)
     canvas.configure(yscrollcommand=scrollbar.set)
 
     frame = CTkFrame(canvas, fg_color=colors[0])
-    #canvas.update()
-    print(screen_width, canvas.winfo_width())
-    canvas.create_window((screen_width//2, 0), window=frame, anchor=N, width=canvas.winfo_width())
+    root.update()
+    canvas.create_window((root.winfo_width()//2, 0), window=frame, anchor=N, width=root.winfo_width()-10)
     
     optionmenu = CTkOptionMenu(frame, values=["Save as Pickle", "Save as CSV", "Change directory", "Exit"], command=optionmenu_callback)
     optionmenu.set("Options")
