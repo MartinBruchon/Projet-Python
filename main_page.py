@@ -53,7 +53,7 @@ def main(dossier):
     screen_height = root.winfo_screenheight()
     root.geometry(f'{screen_width}x{screen_height}+0+0')
 
-    canvas = CTkCanvas(root, bg=colors[0], highlightthickness=0)
+    canvas = CTkCanvas(root, bg='red', highlightthickness=0) #colors[0]
     canvas.pack(side=LEFT, fill=BOTH, expand=True)
     scrollbar = CTkScrollbar(root, orientation=VERTICAL, command=canvas.yview, corner_radius=0)
     scrollbar.pack(side=RIGHT, fill=Y)

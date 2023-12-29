@@ -3,9 +3,10 @@ datetime
 pypdf
 pillow
 geopy
-docx
+python-docx
 openpyxl
-pptx
+python-pptx
 tinytag
 customtkinter
 tkintermapview
+pdf2image

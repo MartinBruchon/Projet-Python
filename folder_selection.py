@@ -11,6 +11,7 @@ def choisir_dossier():
 
 # Créer la fenêtre principale
 root = ctk.CTk()
+ctk.set_appearance_mode("dark")
 screen_width = root.winfo_screenwidth()
 screen_height = root.winfo_screenheight()
 

@@ -1,6 +1,9 @@
 from customtkinter import *
 from PIL import Image
 from metadata_functions import get_pdf_metadata as pdf
+from pdf2image import convert_from_path
+
+#convert_from_path()
 
 colors = ["#1C1C1C" , "#282828"]
 
