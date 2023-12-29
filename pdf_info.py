@@ -34,10 +34,14 @@ def main(file):
     metadatas = pdf(file)
     txt = metadata_parser(metadatas)
     
-    res = pdf2jpg.convert_pdf2jpg(file, ".", pages="0")
-    dir, f = res[0]["output_pdfpath"], res[0]["output_jpgfiles"][0]
-    img = Image.open(f)
-    shutil.rmtree(dir)
+    try :
+        res = pdf2jpg.convert_pdf2jpg(file, ".", pages="0")
+        dir, f = res[0]["output_pdfpath"], res[0]["output_jpgfiles"][0]
+        img = Image.open(f)
+        shutil.rmtree(dir)
+        preview_available = True
+    except :
+        preview_available = False
         
     root = CTkToplevel()
     screen_width = root.winfo_screenwidth()
@@ -61,10 +65,13 @@ def main(file):
     preview_panel = CTkLabel(frame, bg_color=colors[1], text='')
     preview_panel.grid(row=0, column=1, sticky=NSEW,  padx = 30, pady=30)
     
-    preview_panel.update()
-    size = fit(img, preview_panel)
-    img = CTkImage(light_image=img, dark_image=img, size=size)
-    preview_panel.configure(image=img, anchor=CENTER, padx=0, pady=0)    
+    if preview_available == True :
+        preview_panel.update()
+        size = fit(img, preview_panel)
+        img = CTkImage(light_image=img, dark_image=img, size=size)
+        preview_panel.configure(image=img, anchor=CENTER, padx=0, pady=0)    
+    else :
+        preview_panel.configure(text="You need JAVA to be installed\nto see a preview", anchor=CENTER, padx=0, pady=0)
     
     if txt == "There is no metadata in this file.\nTry another one." :
         data_panel.configure(justify=CENTER, anchor=CENTER)
