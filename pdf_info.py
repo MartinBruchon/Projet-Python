@@ -25,17 +25,17 @@ def main(file):
     root = CTkToplevel()
     screen_width = root.winfo_screenwidth()
     screen_height = root.winfo_screenheight()
-    root.geometry(f'{screen_width}x{screen_height}+0+0')
+    #root.geometry(f'{screen_width}x{screen_height}+0+0')
     if system() == "Linux":root.attributes('-zoomed', True)
     else : root.state("zoomed")
+    
+    root.attributes('-topmost', True)
     
     frame = CTkFrame(root, fg_color=colors[0])
     frame.pack(fill=BOTH, expand=True)
     frame.grid_rowconfigure([0,1], weight=1, uniform="row")
     frame.grid_columnconfigure([0,1], weight=1, uniform='col')
-    
-    convert_from_path(file, first_page=1, last_page=1)
-        
+            
     data_panel = CTkLabel(frame, bg_color=colors[1], text=txt, anchor=NW, justify=LEFT, padx=20, pady=20)
     data_panel.grid(column=0, rowspan=2, sticky=NSEW, padx = 30, pady=30)
     data_panel.update()
