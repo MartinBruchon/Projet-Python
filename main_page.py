@@ -55,9 +55,6 @@ def main(dossier):
     root.geometry(f'{screen_width}x{screen_height}+0+0')
     if system() == "Linux":root.attributes('-zoomed', True)
     else : root.state("zoomed")
-    
-    dpi = root.winfo_fpixels('1i')
-    print(dpi)
 
     canvas = CTkCanvas(root, bg='red', highlightthickness=0) #colors[0]
     canvas.pack(side=LEFT, fill=BOTH, expand=True)
