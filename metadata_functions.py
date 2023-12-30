@@ -35,17 +35,15 @@ def load_and_print(file_path):
         with open(file_path, 'rb') as pickle_file:
             temp = pickle.load(pickle_file)
 
-    with open(filename, 'w', encoding='utf-8') as json_file:
-        json.dump(data, json_file, ensure_ascii=False, indent=2)
-
-    pp.pprint(temp)
 
 
+# save to json as human-readable
+>>>>>>> df83e21b12f783615b8fdc25ee5f5a989322dd7b
 def save_to_json(data, base_file_path):
     timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
     filename = f"{base_file_path}_{timestamp}.json"
     with open(filename, 'w', encoding='utf-8') as json_file:
-        json.dump(data, json_file, ensure_ascii=False, indent=2)  
+        json.dump(data, json_file, ensure_ascii=False, indent=2)
 
 ## process a folder and save output
 def main_process_folder(folder_path, recursive, save_type):
