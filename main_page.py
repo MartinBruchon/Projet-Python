@@ -47,7 +47,7 @@ def main(dossier):
             case "Exit": exit()
     
     set_appearance_mode("dark")
-    #deactivate_automatic_dpi_awareness()
+    deactivate_automatic_dpi_awareness()
     root = CTk()
     root.title("Main page")
     screen_width = root.winfo_screenwidth()
@@ -66,7 +66,7 @@ def main(dossier):
     root.update()
     canvas.create_window((root.winfo_width()//2, 0), window=frame, anchor=N, width=root.winfo_width())
     
-    optionmenu = CTkOptionMenu(frame, values=["Save as Pickle", "Save as CSV", "Change directory", "Exit"], command=optionmenu_callback)
+    optionmenu = CTkOptionMenu(frame, values=["Save as Pickle", "Save as JSON", "Change directory", "Exit"], command=optionmenu_callback)
     optionmenu.set("Options")
     optionmenu.pack(anchor=NW, padx=100)
     
@@ -102,14 +102,10 @@ def main(dossier):
             n += 1
             panel.grid(row=row, column=n, padx=10, sticky=N)
             panel.configure(text=files, compound="top", width=250)
-            # if screen_width < 2000 : panel._text_label.configure(wraplength=150)
-            # else : 
-            panel._text_label.configure(wraplength=300)
+            panel._text_label.configure(wraplength=200)
         
     def on_frame_configure(event):
         canvas.configure(scrollregion=canvas.bbox("all"))
 
     frame.bind("<Configure>", on_frame_configure)
     root.mainloop()
-    
-#main("./test_dir")
