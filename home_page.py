@@ -81,7 +81,7 @@ def main(dossier):
         label = CTkLabel(frame, text=key, font=('', 20), anchor='w')
         label.pack(fill=X, padx=100)
         sub_frame = CTkFrame(frame, bg_color=colors[1])
-        sub_frame.pack(padx=100, pady=20, fill=X, expand=True)
+        sub_frame.pack(padx=100, pady=20, fill=X, expand=False)
         
         sub_frame.update()
         maxwg = (sub_frame.winfo_width())//270
