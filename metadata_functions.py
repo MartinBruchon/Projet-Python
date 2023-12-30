@@ -38,7 +38,6 @@ def load_and_print(file_path):
 
 
 # save to json as human-readable
->>>>>>> df83e21b12f783615b8fdc25ee5f5a989322dd7b
 def save_to_json(data, base_file_path):
     timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
     filename = f"{base_file_path}_{timestamp}.json"
