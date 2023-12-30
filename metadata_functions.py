@@ -25,7 +25,7 @@ def save_to_pickle(data, base_file_path):
         pickle.dump(data, pickle_file)
 
 def load_and_print(file_path):
-    pp = pprint.PrettyPrinter(indent=2)
+    #pp = pprint.PrettyPrinter(indent=2)
     temp = None
     if file_path.endswith('.json'):
         with open(file_path, 'r', encoding='utf-8') as json_file:
@@ -35,8 +35,8 @@ def load_and_print(file_path):
         with open(file_path, 'rb') as pickle_file:
             temp = pickle.load(pickle_file)
             
-    pp.pprint(temp)
-    return temp 
+    #pp.pprint(temp)
+    return temp
 
 
 ## remove binary data before writing to json
@@ -70,9 +70,9 @@ def clean_for_json(data, depth=0):
 
 # save to json as human-readable
 def save_to_json(data, base_file_path):
-    print('-----JSON-----')
-    print(data)
-    print('-----END JSON----')
+    # print('-----JSON-----')
+    # print(data)
+    # print('-----END JSON----')
     timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
     filename = f"{base_file_path}_{timestamp}.json"
     

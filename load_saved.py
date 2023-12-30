@@ -1,6 +1,7 @@
 from customtkinter import *
 from platform import system
 from metadata_functions import load_and_print
+from json import dumps
 
 def read(file):
 
@@ -20,11 +21,22 @@ def read(file):
         scrollbar.pack(side=RIGHT, fill=Y)
         canvas.configure(yscrollcommand=scrollbar.set)
         
-        data = load_and_print(file)
+        frame = CTkFrame(canvas, fg_color=colors[0])
+        root.update()
+        canvas.create_window((root.winfo_width()//2, 0), window=frame, anchor=N, width=root.winfo_width())
+            
+        data = dumps(load_and_print(file), indent=2)
         
-        label = CTkLabel(canvas, text=data, anchor=N)
+        label = CTkLabel(frame, text=data, anchor=NW)
         label.pack(fill=X, padx=100)
         
+        canvas.update()
+        w = canvas.winfo_width()-200
+        label.configure(wraplength=w, justify=LEFT)
+
+        text_height = label.winfo_reqheight()
+        canvas.configure(scrollregion=(0, 0, 0, text_height))
+
         def on_frame_configure(event):
             canvas.configure(scrollregion=canvas.bbox("all"))
 
@@ -33,6 +45,6 @@ def read(file):
 
 def main():
     
-    file = filedialog.askopenfile()
+    file = filedialog.askopenfile(filetypes=[("JSON files", "*.json")])
     if file:
         read(file.name)   
