@@ -74,7 +74,7 @@ def main_process_folder(folder_path, recursive, save_type):
     base_path = 'metadata_results'
     match save_type :
         case "pickle" : save_to_pickle(metadata_results, base_path)
-        case "csv" : save_to_json(metadata_results, base_path)
+        case "json" : save_to_json(metadata_results, base_path)
 
 
 def extract_metadata(file_path):
