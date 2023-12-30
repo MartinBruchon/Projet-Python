@@ -57,7 +57,7 @@ def main(dossier):
     if system() == "Linux":root.attributes('-zoomed', True)
     else : root.state("zoomed")
     
-    print(root.winfo_fpixels())
+    print(root.winfo_fpixels('1i'))
 
     canvas = CTkCanvas(root, bg=colors[0], highlightthickness=0)
     canvas.pack(side=LEFT, fill=BOTH, expand=True)
