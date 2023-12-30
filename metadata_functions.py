@@ -34,25 +34,45 @@ def load_and_print(file_path):
     elif file_path.endswith('pkl'):
         with open(file_path, 'rb') as pickle_file:
             temp = pickle.load(pickle_file)
+            
+    pp.pprint(temp)
+    return temp 
 
 
 ## remove binary data before writing to json
-def clean_for_json(data):
+def clean_for_json(data, depth=0):
+    if depth > 10:  # Limit recursion depth
+        return str(data)
+
     if isinstance(data, dict):
-        return {k: clean_for_json(v) for k, v in data.items()}
+        new_dict = {}
+        for k, v in data.items():
+            if isinstance(k, bytes):
+                k = k.decode('utf-8', 'ignore')
+            new_dict[k] = clean_for_json(v, depth + 1)
+        return new_dict
     elif isinstance(data, list):
-        return [clean_for_json(v) for v in data]
-    elif isinstance(data, bytes):
-        return data.decode('utf-8', 'ignore')  # Decoding bytes to string
+        return [clean_for_json(v, depth + 1) for v in data]
+    elif isinstance(data, (bytes, bytearray)):
+        return data.decode('utf-8', 'ignore')
     elif isinstance(data, datetime.datetime):
-        return data.isoformat()  # Converting datetime objects to ISO format string
-    return data
+        return data.isoformat()
+    elif isinstance(data, set):
+        return [clean_for_json(v, depth + 1) for v in data]
+    elif isinstance(data, (int, float, str, bool)):
+        return data
+    # Handling specific complex types
+    else:
+        str(data)
+    # Add more custom handling for complex types if needed
+    return str(data)
+
 
 # save to json as human-readable
 def save_to_json(data, base_file_path):
-    #print('-----JSON-----')
-    #print(data)
-    #print('-----END JSON----')
+    print('-----JSON-----')
+    print(data)
+    print('-----END JSON----')
     timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
     filename = f"{base_file_path}_{timestamp}.json"
     
