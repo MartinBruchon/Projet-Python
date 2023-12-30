@@ -30,20 +30,13 @@ def main(file):
     metadatas = pdf(file)
     txt = metadata_parser(metadatas)
     
-    res = pdf2jpg.convert_pdf2jpg(file, ".", pages="0")
-    dir, f = res[0]["output_pdfpath"], res[0]["output_jpgfiles"][0]
-    img = Image.open(f)
-    shutil.rmtree(dir)
-    preview_available = True
-    
-    # try :
-    #     res = pdf2jpg.convert_pdf2jpg(file, ".", pages="0")
-    #     dir, f = res[0]["output_pdfpath"], res[0]["output_jpgfiles"][0]
-    #     img = Image.open(f)
-    #     shutil.rmtree(dir)
-    #     preview_available = True
-    # except :
-    #     preview_available = False
+    try :
+        res = pdf2jpg.convert_pdf2jpg(file, ".", pages="0")
+        dir, f = res[0]["output_pdfpath"], res[0]["output_jpgfiles"][0]
+        img = Image.open(f)
+        preview_available = True
+    except :
+        preview_available = False
         
     win = Window(n_panel=2, title="PDF metadatas")
     
@@ -51,7 +44,9 @@ def main(file):
         win.preview_panel.update()
         size = fit(img, win.preview_panel)
         img = CTkImage(light_image=img, dark_image=img, size=size)
-        win.preview_panel.configure(image=img, anchor=CENTER, padx=0, pady=0)    
+        win.preview_panel.configure(image=img, anchor=CENTER, padx=0, pady=0)  
+        try : shutil.rmtree(dir)  
+        except : print("The folder cannot be deleted")
     else :
         win.preview_panel.configure(text="You need JAVA to be installed\nto see a preview", anchor=CENTER, padx=0, pady=0)
     
