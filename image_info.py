@@ -16,19 +16,11 @@ def fit(img, panel):
     
 def metadata_parser(metadatas):
     txt = ""
-    tmp = "\n"
-    try :
-        for e in metadatas["Full"] :
-            if str(metadatas["Full"][e])[:2] != "b'" and e != "GPSInfo":
-                txt += str(e)+" : "+str(metadatas["Full"][e])+"\n"
-    except :
-        txt = "There is no metadata in this file.\nTry another one."
-    try :
+    if metadatas != {}:
         for e in metadatas :
-            if e != "Full": tmp += str(e)+" : "+str(metadatas[e])+"\n"
-        txt += tmp
-    except :
-        txt += ""
+            txt += str(e)+" : "+str(metadatas[e])+"\n"
+    else :
+        txt = "There is no metadata in this file.\nTry another one."
                 
     return txt
 
@@ -42,7 +34,7 @@ def main(file):
     
     win.data_panel.configure(text=txt)
     
-    if txt[:20] == "There is no metadata" :
+    if txt == "There is no metadata in this file.\nTry another one." :
         win.data_panel.configure(justify=CENTER, anchor=CENTER)
     
     win.preview_panel.update()

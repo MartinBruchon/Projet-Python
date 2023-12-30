@@ -19,8 +19,8 @@ def fit(img, panel):
 def metadata_parser(metadatas):
     txt = ""
     try :
-        for e in metadatas["Full"] :
-            txt += str(e)[1:]+" : "+str(metadatas["Full"][e])+"\n"
+        for e in metadatas :
+            txt += str(e)+" : "+str(metadatas[e])+"\n"
     except :
         txt = "There is no metadata in this file.\nTry another one."
     return txt

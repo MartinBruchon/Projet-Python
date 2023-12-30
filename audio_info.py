@@ -5,7 +5,7 @@ def metadata_parser(metadatas):
     txt = ""
     try :
         for e in metadatas :
-            if e != "Full" : txt += str(e)+" : "+str(metadatas[e])+"\n"
+            txt += str(e)+" : "+str(metadatas[e])+"\n"
     except :
         txt = "There is no metadata in this file.\nTry another one."
     return txt

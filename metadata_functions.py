@@ -226,8 +226,8 @@ def get_pdf_metadata(filename):
             if key in meta:
                 res[key[1:]] = meta[key]  # Remove leading '/' and add to dictionary
 
-    # Add full metadata under the key 'Full'
-    res['Full'] = dict(meta) if meta else None
+    # # Add full metadata under the key 'Full'
+    # res['Full'] = dict(meta) if meta else None
 
     return res
 
@@ -287,8 +287,21 @@ def get_image_metadata(img_src):
     except:
         return {}
     geotags = get_geotagging(exif)
-    result = {'Full': labeled_exif}
+    # result = {'Full': labeled_exif}
+    result={}
 
+    interesting_attributes = ["Make", "Model", "Software", 
+                              "DateTime", "DateTimeOriginal",
+                              "XResolution", "YResolution", "ExifImageWidth", "ExifImageHeight","Orientation", 
+                              "SceneCaptureType", "MeteringMode", "Flash", "FocalLength", "ShutterSpeedValue", "ExposureTime", 
+                              "WhiteBalance", "ColorSpace", "SensingMethod", "ApertureValue", "BrightnessValue"]
+    
+    for attr in interesting_attributes :
+        try :
+            result[attr]=f"{attr} : {labeled_exif[attr]}"
+        except :
+            next 
+    
     if geotags:
         coords = get_coordinates(geotags)
         result['Coordinates'] = coords
@@ -329,7 +342,7 @@ def get_office_metadata(file_path):
                 if hasattr(properties, attr)}
 
     # Add full metadata
-    metadata['Full'] = full_metadata
+    # metadata['Full'] = full_metadata
 
     return metadata
 
@@ -360,7 +373,7 @@ def get_audio_metadata(file_path):
         }
         
         # Add full metadata
-        metadata['Full'] = full_metadata
+        # metadata['Full'] = full_metadata
 
         return metadata
         
@@ -385,7 +398,7 @@ def get_video_metadata(file_path):
         }
         
         # Add full metadata
-        metadata['Full'] = recursive_clean_metadata(full_metadata)
+        # metadata['Full'] = recursive_clean_metadata(full_metadata)
         #metadata['Full'] = full_metadata
 
         return metadata

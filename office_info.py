@@ -4,8 +4,8 @@ from metadata_functions import get_office_metadata as office
 def metadata_parser(metadatas):
     txt = ""
     try :
-        for e in metadatas["Full"] :
-            txt += str(e)+" : "+str(metadatas["Full"][e])+"\n"
+        for e in metadatas :
+            txt += str(e)+" : "+str(metadatas[e])+"\n"
     except :
         txt = "There is no metadata in this file.\nTry another one."
     return txt
