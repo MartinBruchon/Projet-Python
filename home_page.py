@@ -105,8 +105,6 @@ def main(dossier):
             n += 1
             panel.grid(row=row, column=n, padx=10, sticky=N)
             panel.configure(text=files, compound="top", width=250)
-            # if screen_width < 2000 : panel._text_label.configure(wraplength=150)
-            # else : 
             panel._text_label.configure(wraplength=200)
         
     def on_frame_configure(event):

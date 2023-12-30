@@ -3,7 +3,7 @@ import os
 import datetime
 import glob
 import pickle
-import csv
+import json
 # PDF exif tool
 from pypdf import PdfReader
 # Image exif tools
@@ -27,26 +27,25 @@ def save_to_pickle(data, base_file_path):
 def load_and_print(file_path):
     pp = pprint.PrettyPrinter(indent=2)
     temp = None
-    if file_path.endswith('csv'):
-        with open(file_path, 'rb') as csv_file:
-            temp = csv.readlines(csv_file)
+    if file_path.endswith('.json'):
+        with open(file_path, 'r', encoding='utf-8') as json_file:
+            temp = json.load(json_file)
             
     elif file_path.endswith('pkl'):
         with open(file_path, 'rb') as pickle_file:
             temp = pickle.load(pickle_file)
 
-    pp.pprint(temp) 
+    with open(filename, 'w', encoding='utf-8') as json_file:
+        json.dump(data, json_file, ensure_ascii=False, indent=2)
 
-# save to csv as human-readable
-def save_to_csv(data, base_file_path):
+    pp.pprint(temp)
+
+
+def save_to_json(data, base_file_path):
     timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
-    filename = f"{base_file_path}_{timestamp}.csv"
-    with open(filename, 'w', newline='', encoding='utf-8') as csv_file:
-        writer = csv.writer(csv_file)
-        writer.writerow(['File Path', 'Metadata'])
-
-        for file_path, metadata in data.items():
-            writer.writerow([file_path, str(metadata)]) 
+    filename = f"{base_file_path}_{timestamp}.json"
+    with open(filename, 'w', encoding='utf-8') as json_file:
+        json.dump(data, json_file, ensure_ascii=False, indent=2)  
 
 ## process a folder and save output
 def main_process_folder(folder_path, recursive, save_type):

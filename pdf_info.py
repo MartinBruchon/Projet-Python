@@ -30,14 +30,20 @@ def main(file):
     metadatas = pdf(file)
     txt = metadata_parser(metadatas)
     
-    try :
-        res = pdf2jpg.convert_pdf2jpg(file, ".", pages="0")
-        dir, f = res[0]["output_pdfpath"], res[0]["output_jpgfiles"][0]
-        img = Image.open(f)
-        shutil.rmtree(dir)
-        preview_available = True
-    except :
-        preview_available = False
+    res = pdf2jpg.convert_pdf2jpg(file, ".", pages="0")
+    dir, f = res[0]["output_pdfpath"], res[0]["output_jpgfiles"][0]
+    img = Image.open(f)
+    shutil.rmtree(dir)
+    preview_available = True
+    
+    # try :
+    #     res = pdf2jpg.convert_pdf2jpg(file, ".", pages="0")
+    #     dir, f = res[0]["output_pdfpath"], res[0]["output_jpgfiles"][0]
+    #     img = Image.open(f)
+    #     shutil.rmtree(dir)
+    #     preview_available = True
+    # except :
+    #     preview_available = False
         
     win = Window(n_panel=2, title="PDF metadatas")
     
