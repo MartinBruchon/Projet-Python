@@ -1,7 +1,7 @@
 from customtkinter import *
 from scan_folder import scan
 from PIL import Image
-import image_info, pdf_info, office_info, video_info, audio_info
+import image_info, pdf_info, office_info, video_info, audio_info, load_saved
 from metadata_functions import main_process_folder
 import subprocess
 from platform import system
@@ -44,6 +44,7 @@ def main(dossier):
                 exit()
             case "Save as Pickle": main_process_folder(dossier, False, "pickle")
             case "Save as CSV": main_process_folder(dossier, False, "csv")
+            case "Load" : load_saved.main()
             case "Exit": exit()
     
     set_appearance_mode("dark")
@@ -66,7 +67,7 @@ def main(dossier):
     root.update()
     canvas.create_window((root.winfo_width()//2, 0), window=frame, anchor=N, width=root.winfo_width())
     
-    optionmenu = CTkOptionMenu(frame, values=["Save as Pickle", "Save as CSV", "Change directory", "Exit"], command=optionmenu_callback)
+    optionmenu = CTkOptionMenu(frame, values=["Save as Pickle", "Save as CSV", "Change directory", "Load", "Exit"], command=optionmenu_callback)
     optionmenu.set("Options")
     optionmenu.pack(anchor=NW, padx=100)
     
@@ -111,5 +112,3 @@ def main(dossier):
 
     frame.bind("<Configure>", on_frame_configure)
     root.mainloop()
-    
-#main("./test_dir")

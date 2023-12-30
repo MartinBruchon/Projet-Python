@@ -16,6 +16,7 @@ from openpyxl import load_workbook
 from pptx import Presentation
 # audio and video metadata
 from tinytag import TinyTag
+import pprint
 
 def save_to_pickle(data, base_file_path):
     timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
@@ -23,11 +24,18 @@ def save_to_pickle(data, base_file_path):
     with open(filename, 'wb') as pickle_file:
         pickle.dump(data, pickle_file)
 
-# def load_from_pickle(file_path):
-#     with open(file_path, 'rb') as pickle_file:
-#         return pickle.load(pickle_file)
-#     # Example of loading
-#     #loaded_data = load_from_pickle('metadata_results_yourtimestamp.pkl')
+def load_and_print(file_path):
+    pp = pprint.PrettyPrinter(indent=2)
+    temp = None
+    if file_path.endswith('csv'):
+        with open(file_path, 'rb') as csv_file:
+            temp = csv.readlines(csv_file)
+            
+    elif file_path.endswith('pkl'):
+        with open(file_path, 'rb') as pickle_file:
+            temp = pickle.load(pickle_file)
+
+    pp.pprint(temp) 
 
 # save to csv as human-readable
 def save_to_csv(data, base_file_path):

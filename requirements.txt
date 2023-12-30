@@ -11,3 +11,4 @@ customtkinter
 tkintermapview
 pdf2jpg
 opencv-python
+pprint
