@@ -43,7 +43,7 @@ def main(dossier):
                 subprocess.Popen([sys.executable,"folder_selection.py"])
                 exit()
             case "Save as Pickle": main_process_folder(dossier, False, "pickle")
-            case "Save as CSV": main_process_folder(dossier, False, "csv")
+            case "Save as JSON": main_process_folder(dossier, False, "json")
             case "Exit": exit()
     
     set_appearance_mode("dark")

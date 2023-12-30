@@ -36,13 +36,29 @@ def load_and_print(file_path):
             temp = pickle.load(pickle_file)
 
 
+## remove binary data before writing to json
+def clean_for_json(data):
+    if isinstance(data, dict):
+        return {k: clean_for_json(v) for k, v in data.items()}
+    elif isinstance(data, list):
+        return [clean_for_json(v) for v in data]
+    elif isinstance(data, bytes):
+        return data.decode('utf-8', 'ignore')  # Decoding bytes to string
+    elif isinstance(data, datetime.datetime):
+        return data.isoformat()  # Converting datetime objects to ISO format string
+    return data
 
 # save to json as human-readable
 def save_to_json(data, base_file_path):
+    #print('-----JSON-----')
+    #print(data)
+    #print('-----END JSON----')
     timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
     filename = f"{base_file_path}_{timestamp}.json"
+    
+    cleaned_data = clean_for_json(data)
     with open(filename, 'w', encoding='utf-8') as json_file:
-        json.dump(data, json_file, ensure_ascii=False, indent=2)
+        json.dump(cleaned_data, json_file, ensure_ascii=False, indent=2)
 
 ## process a folder and save output
 def main_process_folder(folder_path, recursive, save_type):
