@@ -8,7 +8,9 @@ from platform import system
 
 # Visual parameter initialisation
 colors = ["#1C1C1C" , "#282828"]
-size=(96, 96)
+size=(80, 80)
+padding_x = 75
+update_task_id = None
 
 # Load filetype logos and create CTkImages
 pdf_img = Image.open("./src/pdf.png")
@@ -70,13 +72,45 @@ def main(folder_path):
     root.geometry(f'{screen_width}x{screen_height}+0+0')
     if system() == "Linux":root.attributes('-zoomed', True)
     else : root.state("zoomed")
+
     
+    # OLD METHOD
     # Creation of a scrollable canvas
-    canvas = CTkCanvas(root, bg=colors[0], highlightthickness=0)
-    canvas.pack(side=LEFT, fill=BOTH, expand=True)
-    scrollbar = CTkScrollbar(root, orientation=VERTICAL, command=canvas.yview, corner_radius=0)
-    scrollbar.pack(side=RIGHT, fill=Y)
-    canvas.configure(yscrollcommand=scrollbar.set)
+    #canvas = CTkCanvas(root, bg=colors[0], highlightthickness=0)
+    #canvas.pack(side=LEFT, fill=BOTH, expand=True)
+    
+    # vertical scroolbar
+    #scrollbar = CTkScrollbar(root, orientation=VERTICAL, command=canvas.yview, corner_radius=0)
+    #scrollbar.pack(side=RIGHT, fill=Y)
+    #canvas.configure(yscrollcommand=scrollbar.set)
+    
+    #horizontal scrollbar
+    #h_scrollbar = CTkScrollbar(root, orientation=HORIZONTAL, command=canvas.xview)
+    #h_scrollbar.pack(side=BOTTOM, fill=X)
+    #canvas.configure(xscrollcommand=h_scrollbar.set)
+    
+  
+    ### new test
+    # Vertical scrollbar (pack this first)
+    v_scrollbar = CTkScrollbar(root, orientation="vertical")
+    v_scrollbar.pack(side="right", fill="y")
+
+    # Horizontal scrollbar (pack this second)
+    h_scrollbar = CTkScrollbar(root, orientation="horizontal")
+    h_scrollbar.pack(side="bottom", fill="x")
+
+    # Canvas (pack this last to fill the remaining space)
+    canvas = CTkCanvas(root, bg=colors[0], highlightthickness=0,
+                       yscrollcommand=v_scrollbar.set,
+                       xscrollcommand=h_scrollbar.set)
+    canvas.pack(side="left", fill="both", expand=True)
+
+    v_scrollbar.configure(command=canvas.yview)
+    h_scrollbar.configure(command=canvas.xview)
+    
+    ### end test 
+  
+  
 
     # Creation of the main frame
     frame = CTkFrame(canvas, fg_color=colors[0])
@@ -84,7 +118,7 @@ def main(folder_path):
     canvas.create_window((root.winfo_width()//2, 0), window=frame, anchor=N, width=root.winfo_width())
     
     # Creation of the multiple-choices menu
-    optionmenu = CTkOptionMenu(frame, values=["Save as JSON", "Change directory", "Load JSON", "Exit"], command=optionmenu_callback)
+    optionmenu = CTkOptionMenu(frame, values=[ "Change directory", "Save as JSON","Load JSON", "Exit"], command=optionmenu_callback)
     optionmenu.set("Options")
     optionmenu.pack(anchor=NW, padx=100)
     
@@ -93,16 +127,17 @@ def main(folder_path):
     
     # Get the list of files ordered by type (in a dict)  
     filetype_list = scan(folder_path)
+    
+    
 
     # Creation of a container for each file type
     for key, values in filetype_list.items():
                 
         label = CTkLabel(frame, text=key, font=('', 20), anchor='w')
         label.pack(fill=X, padx=100)
-        sub_frame = CTkFrame(frame, bg_color=colors[1])
-        sub_frame.pack(padx=100, pady=20, fill=X, expand=False)
-        #sub_frame.pack(padx=100, pady=20, fill=BOTH, expand=True)
         
+        sub_frame = CTkFrame(frame, bg_color=colors[1])
+        sub_frame.pack(padx=padding_x, pady=20, fill=X)
         sub_frame.update()
         maxwg = (sub_frame.winfo_width())//270
         n=0
@@ -120,20 +155,24 @@ def main(folder_path):
             elif key == "Video" : panel = CTkButton(sub_frame, fg_color="transparent", text="", image=video_img, command=lambda f=files, t=key:button_callback(f,t))
             else : panel = CTkButton(sub_frame, fg_color="transparent", text="", image=warn_img, command=lambda f=files, t=key:button_callback(f,t))
             
-            if n >= maxwg : row += 1; n =0
+            if n >= maxwg: 
+                row += 1
+                n =0
             n += 1
             panel.grid(row=row, column=n, padx=10, sticky=N)
             panel.configure(text=files, compound="top", width=250)
             panel._text_label.configure(wraplength=200)
-
+    #current_y_position += sub_frame.winfo_reqheight() + 40  # assuming 40px padding between subframes
     # Configure the scroll region
     def update_scrollregion():
         root.update_idletasks()
         canvas.configure(scrollregion=canvas.bbox("all"))
-        
+      
     
-
+    
     root.after(100, update_scrollregion) 
+    #frame.bind("<Configure>", update_scrollregion)
+
     
     # Enable the mouse scroll
     def mouse_scroll(event):
