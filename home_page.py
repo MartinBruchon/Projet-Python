@@ -89,8 +89,6 @@ def main(folder_path):
     #h_scrollbar.pack(side=BOTTOM, fill=X)
     #canvas.configure(xscrollcommand=h_scrollbar.set)
     
-  
-    ### new test
     # Vertical scrollbar (pack this first)
     v_scrollbar = CTkScrollbar(root, orientation="vertical")
     v_scrollbar.pack(side="right", fill="y")
@@ -107,10 +105,6 @@ def main(folder_path):
 
     v_scrollbar.configure(command=canvas.yview)
     h_scrollbar.configure(command=canvas.xview)
-    
-    ### end test 
-  
-  
 
     # Creation of the main frame
     frame = CTkFrame(canvas, fg_color=colors[0])
@@ -128,8 +122,6 @@ def main(folder_path):
     # Get the list of files ordered by type (in a dict)  
     filetype_list = scan(folder_path)
     
-    
-
     # Creation of a container for each file type
     for key, values in filetype_list.items():
                 
