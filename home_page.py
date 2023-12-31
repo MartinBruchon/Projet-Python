@@ -109,5 +109,21 @@ def main(dossier):
         canvas.configure(scrollregion=canvas.bbox("all"))
         print("Frame configured")
 
+
+    def update_scrollregion():
+        root.update_idletasks()  # Update idle tasks before configuring the scroll region
+        canvas.configure(scrollregion=canvas.bbox("all"))
+
+    root.after(100, update_scrollregion) 
+    def mouse_scroll(event):
+        if event.num == 5 or event.delta == -120:  # Scroll down
+            canvas.yview_scroll(1, "units")
+        if event.num == 4 or event.delta == 120:  # Scroll up
+            canvas.yview_scroll(-1, "units")
+
+    for widget in [canvas, frame]:
+        widget.bind("<MouseWheel>", mouse_scroll)  # For Windows and MacOS
+        widget.bind("<Button-4>", mouse_scroll)  # For Linux scrolling up
+        widget.bind("<Button-5>", mouse_scroll)  # For Linux scrolling down
     frame.bind("<Configure>", on_frame_configure)
     root.mainloop()
