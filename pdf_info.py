@@ -6,6 +6,13 @@ from pdf2jpg import pdf2jpg
 import shutil
 
 def fit(img, panel):
+    """Find the best size to fit the best as possible an image into the preview panel, keeping the image aspect ratio
+    Args:
+        img (PIL Image): The image to fit into the panel
+        panel (CTkLabel): The panel
+    Returns:
+        Tuple: The size (width, height) of the image to fit it in the panel
+    """
     img_size = img.size
     panel_size = (panel.winfo_width(), panel.winfo_height())
     img_ratio = img_size[0]/img_size[1]
@@ -17,6 +24,12 @@ def fit(img, panel):
         return (panel_size[0], panel_size[0]//img_ratio)
 
 def metadata_parser(metadatas):
+    """Parse the metadatas from a dictionnary to a text to display on the page
+    Args:
+        metadatas (dict): Dictionnairy containing the metadatas
+    Returns:
+        str: Pretty printing of the metadatas
+    """
     txt = ""
     try :
         for e in metadatas :
@@ -26,10 +39,15 @@ def metadata_parser(metadatas):
     return txt
 
 def main(file):
+    """Create the window displaying the metadatas
+    Args:
+        file (str): The path to the file to analyse
+    """
         
     metadatas = pdf(file)
     txt = metadata_parser(metadatas)
     
+    # Try on convert the first page of the PDF file to JPG image to load it as preview
     try :
         res = pdf2jpg.convert_pdf2jpg(file, ".", pages="0")
         dir, f = res[0]["output_pdfpath"], res[0]["output_jpgfiles"][0]
@@ -38,8 +56,10 @@ def main(file):
     except :
         preview_available = False
         
+    # Create the window with 2 panels for the data and the preview
     win = Window(n_panel=2, title="PDF metadatas")
     
+    # If the extraction of the first page succeed, display it in the app and remove the temporary image of the filesystem
     if preview_available == True :
         win.preview_panel.update()
         size = fit(img, win.preview_panel)
