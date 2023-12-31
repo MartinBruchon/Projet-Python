@@ -143,6 +143,5 @@ def main(folder_path):
         widget.bind("<MouseWheel>", mouse_scroll)  # For Windows and MacOS
         widget.bind("<Button-4>", mouse_scroll)  # For Linux scrolling up
         widget.bind("<Button-5>", mouse_scroll)  # For Linux scrolling down
-    frame.bind("<Configure>", update_scrollregion)
     
     root.mainloop()
