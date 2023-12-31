@@ -287,20 +287,22 @@ def get_image_metadata(img_src):
     except:
         return {}
     geotags = get_geotagging(exif)
-    # result = {'Full': labeled_exif}
-    result={}
-
-    interesting_attributes = ["Make", "Model", "Software", 
-                              "DateTime", "DateTimeOriginal",
-                              "XResolution", "YResolution", "ExifImageWidth", "ExifImageHeight","Orientation", 
-                              "SceneCaptureType", "MeteringMode", "Flash", "FocalLength", "ShutterSpeedValue", "ExposureTime", 
-                              "WhiteBalance", "ColorSpace", "SensingMethod", "ApertureValue", "BrightnessValue"]
     
-    for attr in interesting_attributes :
-        try :
-            result[attr]=f"{attr} : {labeled_exif[attr]}"
-        except :
-            next 
+    result={}
+    result = {'Full': labeled_exif}
+    
+    # interesting_attributes = ["Title", "Artist", "ImageDescription",
+    #                           "Make", "Model", "Software", 
+    #                           "DateTime", "DateTimeOriginal",
+    #                           "XResolution", "YResolution", "ExifImageWidth", "ExifImageHeight","Orientation", 
+    #                           "SceneCaptureType", "MeteringMode", "Flash", "FocalLength", "ShutterSpeedValue", "ExposureTime", 
+    #                           "WhiteBalance", "ColorSpace", "SensingMethod", "ApertureValue", "BrightnessValue"]
+    
+    # for attr in interesting_attributes :
+    #     try :
+    #         result[attr]=f"{attr} : {labeled_exif[attr]}"
+    #     except :
+    #         next 
     
     if geotags:
         coords = get_coordinates(geotags)

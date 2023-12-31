@@ -19,7 +19,7 @@ def read(file):
 
     data = dumps(load_and_print(file), indent=2)
 
-    text_widget = Text(root, wrap='word', bg=colors[1], fg='white', padx=20, pady=20)
+    text_widget = Text(root, wrap='word', bg=colors[1], fg='white', borderwidth=-1, padx=20, pady=20)
     text_widget.pack(fill=BOTH, expand=True, side=LEFT)  # Pack to fill the window and expand
 
     scrollbar = CTkScrollbar(root, command=text_widget.yview)  # Create the scrollbar

@@ -25,7 +25,7 @@ class Window(CTkToplevel):
         
         def create_data_panel():
             #self.data_panel = CTkLabel(self.frame, bg_color=self.colors[1], anchor=NW, justify=LEFT, padx=20, pady=20)
-            self.data_panel = Text(self.frame, wrap="word", bg=self.colors[1], fg='white', state='disabled', padx=20, pady=20)
+            self.data_panel = Text(self.frame, wrap="word", bg=self.colors[1], fg='white', borderwidth=-1, state='disabled', padx=20, pady=20)
             self.data_panel.grid(column=0, rowspan=2, sticky=NSEW, padx = 30, pady=30)
             self.data_panel.update()
             #self.data_panel.configure(wraplength = self.data_panel.winfo_width()-100)
