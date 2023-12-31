@@ -17,7 +17,10 @@ def main(file):
     metadatas = office(file)
     txt = metadata_parser(metadatas)    
     
-    win.data_panel.configure(text=txt)
+    #win.data_panel.configure(text=txt)
+    win.data_panel.configure(state='normal')
+    win.data_panel.insert('1.0', txt)
+    win.data_panel.configure(state='disabled')
     
     if txt == "There is no metadata in this file.\nTry another one." :
         win.data_panel.configure(justify=CENTER, anchor=CENTER)

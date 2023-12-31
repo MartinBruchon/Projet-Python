@@ -1,6 +1,7 @@
 from customtkinter import CTkToplevel, CTkFrame, CTkLabel, set_appearance_mode, BOTH, LEFT, NSEW, NW, CENTER
 from platform import system
 import tkintermapview as tkmap
+from tkinter import Text 
 
 class Window(CTkToplevel):
     def __init__(self, n_panel, title):
@@ -23,10 +24,11 @@ class Window(CTkToplevel):
         self.frame.grid_columnconfigure([0,1], weight=1, uniform='col')
         
         def create_data_panel():
-            self.data_panel = CTkLabel(self.frame, bg_color=self.colors[1], anchor=NW, justify=LEFT, padx=20, pady=20)
+            #self.data_panel = CTkLabel(self.frame, bg_color=self.colors[1], anchor=NW, justify=LEFT, padx=20, pady=20)
+            self.data_panel = Text(self.frame, wrap="word", bg=self.colors[1], fg='white', state='disabled', padx=20, pady=20)
             self.data_panel.grid(column=0, rowspan=2, sticky=NSEW, padx = 30, pady=30)
             self.data_panel.update()
-            self.data_panel.configure(wraplength = self.data_panel.winfo_width()-100)
+            #self.data_panel.configure(wraplength = self.data_panel.winfo_width()-100)
         
         def create_preview_panel(span):
             create_data_panel()

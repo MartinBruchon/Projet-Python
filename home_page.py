@@ -107,6 +107,7 @@ def main(dossier):
         
     def on_frame_configure(event):
         canvas.configure(scrollregion=canvas.bbox("all"))
+        print("Frame configured")
 
     frame.bind("<Configure>", on_frame_configure)
     root.mainloop()
