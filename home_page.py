@@ -101,6 +101,7 @@ def main(folder_path):
         label.pack(fill=X, padx=100)
         sub_frame = CTkFrame(frame, bg_color=colors[1])
         sub_frame.pack(padx=100, pady=20, fill=X, expand=False)
+        #sub_frame.pack(padx=100, pady=20, fill=BOTH, expand=True)
         
         sub_frame.update()
         maxwg = (sub_frame.winfo_width())//270
@@ -129,6 +130,8 @@ def main(folder_path):
     def update_scrollregion():
         root.update_idletasks()
         canvas.configure(scrollregion=canvas.bbox("all"))
+        
+    
 
     root.after(100, update_scrollregion) 
     

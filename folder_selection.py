@@ -19,12 +19,12 @@ def main():
     screen_width = root.winfo_screenwidth()
     screen_height = root.winfo_screenheight()
 
-    root.title("Page d'accueil")
+    root.title("Start Page")
 
-    label_instructions = ctk.CTkLabel(root, text="Choisissez un dossier local :", font=('',20))
+    label_instructions = ctk.CTkLabel(root, text="Choose a folder", font=('',20))
     label_instructions.pack(pady=10)
 
-    button_choisir = ctk.CTkButton(root, text="Choisir un dossier", command=choisir_dossier, font=('',20))
+    button_choisir = ctk.CTkButton(root, text="Choose a folder", command=choisir_dossier, font=('',20))
     button_choisir.pack(pady=20)
 
     root.eval('tk::PlaceWindow . center')
