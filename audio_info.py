@@ -17,9 +17,8 @@ def main(file):
     
     win = Window(n_panel=1, title="Audio File metadata")
     
-    win.data_panel.configure(text=txt)
-    
-    if txt == "There is no metadata in this file.\nTry another one." :
-        win.data_panel.configure(justify=CENTER, anchor=CENTER)
+    win.data_panel.configure(state='normal')
+    win.data_panel.insert('1.0', txt)
+    win.data_panel.configure(state='disabled')
 
     win.root.mainloop()

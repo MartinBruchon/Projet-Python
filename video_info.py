@@ -70,11 +70,9 @@ def main(file):
     size = fit(img, win.preview_panel)
     img = CTkImage(light_image=img, dark_image=img, size=size)
     
-    win.data_panel.configure(text=txt)
-    win.preview_panel.configure(image=img, anchor=CENTER, padx=0, pady=0)
-
-    if txt == "There is no metadata in this file.\nTry another one." :
-        win.data_panel.configure(justify=CENTER, anchor=CENTER)
-    
+    win.data_panel.configure(state='normal')
+    win.data_panel.insert('1.0', txt)
+    win.data_panel.configure(state='disabled')
+    win.preview_panel.configure(image=img, anchor=CENTER, padx=0, pady=0)    
 
     win.root.mainloop()

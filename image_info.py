@@ -32,10 +32,9 @@ def main(file):
     
     win = Window(n_panel=3, title="Image metadatas")
     
-    win.data_panel.configure(text=txt)
-    
-    if txt == "There is no metadata in this file.\nTry another one." :
-        win.data_panel.configure(justify=CENTER, anchor=CENTER)
+    win.data_panel.configure(state='normal')
+    win.data_panel.insert('1.0', txt)
+    win.data_panel.configure(state='disabled')
     
     win.preview_panel.update()
     size = fit(img, win.preview_panel)
