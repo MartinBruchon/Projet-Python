@@ -18,11 +18,11 @@ from pptx import Presentation
 from tinytag import TinyTag
 import pprint
 
-def save_to_pickle(data, base_file_path):
-    timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
-    filename = f"{base_file_path}_{timestamp}.pkl"
-    with open(filename, 'wb') as pickle_file:
-        pickle.dump(data, pickle_file)
+# def save_to_pickle(data, base_file_path):
+#     timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
+#     filename = f"{base_file_path}_{timestamp}.pkl"
+#     with open(filename, 'wb') as pickle_file:
+#         pickle.dump(data, pickle_file)
 
 def load_and_print(file_path):
     #pp = pprint.PrettyPrinter(indent=2)
@@ -31,9 +31,9 @@ def load_and_print(file_path):
         with open(file_path, 'r', encoding='utf-8') as json_file:
             temp = json.load(json_file)
             
-    elif file_path.endswith('pkl'):
-        with open(file_path, 'rb') as pickle_file:
-            temp = pickle.load(pickle_file)
+    # elif file_path.endswith('pkl'):
+    #     with open(file_path, 'rb') as pickle_file:
+    #         temp = pickle.load(pickle_file)
             
     #pp.pprint(temp)
     return temp
@@ -88,9 +88,7 @@ def main_process_folder(folder_path, recursive, save_type):
         for root, dirs, files in os.walk(folder_path):
             for file in files:
                 file_path = os.path.join(root, file)
-                print(file_path)
                 metadata = extract_metadata(file_path)
-                print(metadata)
                 if metadata == {}:
                     continue
                 metadata_results[file_path] = metadata
@@ -98,9 +96,7 @@ def main_process_folder(folder_path, recursive, save_type):
         for file in os.listdir(folder_path):
             if os.path.isfile(os.path.join(folder_path, file)):
                 file_path = os.path.join(folder_path, file)
-                print(file_path)
                 metadata = extract_metadata(file_path)
-                print(metadata)
                 if metadata == {}:
                     continue
                 metadata_results[file_path] = metadata
@@ -109,7 +105,7 @@ def main_process_folder(folder_path, recursive, save_type):
     # Save results with timestamp in filenames
     base_path = 'metadata_results'
     match save_type :
-        case "pickle" : save_to_pickle(metadata_results, base_path)
+        #case "pickle" : save_to_pickle(metadata_results, base_path)
         case "json" : save_to_json(metadata_results, base_path)
 
 

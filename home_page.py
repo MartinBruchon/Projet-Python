@@ -42,9 +42,8 @@ def main(dossier):
                 root.destroy()
                 subprocess.Popen([sys.executable,"main.py"])
                 exit()
-            case "Save as Pickle": main_process_folder(dossier, False, "pickle")
             case "Save as JSON": main_process_folder(dossier, False, "json")
-            case "Load" : load_saved.main()
+            case "Load JSON" : load_saved.main()
             case "Exit": exit()
     
     set_appearance_mode("dark")
@@ -67,7 +66,7 @@ def main(dossier):
     root.update()
     canvas.create_window((root.winfo_width()//2, 0), window=frame, anchor=N, width=root.winfo_width())
     
-    optionmenu = CTkOptionMenu(frame, values=["Save as Pickle", "Save as JSON", "Change directory", "Load", "Exit"], command=optionmenu_callback)
+    optionmenu = CTkOptionMenu(frame, values=["Save as JSON", "Change directory", "Load JSON", "Exit"], command=optionmenu_callback)
     optionmenu.set("Options")
     optionmenu.pack(anchor=NW, padx=100)
     
