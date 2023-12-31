@@ -166,7 +166,6 @@ def remove_none_entries(metadata):
 
 def check_file_integrity(file_path):
     kind = filetype.guess(file_path)
-    print(kind)
     message = ''
     if kind is None :
         message = "Unknown or unsupported image type."
